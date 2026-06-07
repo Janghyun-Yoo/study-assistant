@@ -41,8 +41,10 @@ study-assistant/
     common-rules.md
     allen-source-policy.md
   templates/
+    compact-exam-note.md
     disease-note.md
     drug-table.md
+    pdf-rendering-guide.md
     problem-review.md
     wrong-answer-log.md
   sessions/
@@ -58,7 +60,7 @@ For theory-page study:
 ```text
 Use agents/note-pdf-agent.md.
 Based on the current Allen's Library theory page, create a compact exam note
-and prepare it for PDF output.
+using templates/compact-exam-note.md and prepare it for PDF output.
 ```
 
 For question review:
@@ -93,6 +95,12 @@ separate subfolders inside the topic folder:
 Study Assistant/Notes/{system}/{topic}/pdf/
 Study Assistant/Notes/{system}/{topic}/md/
 ```
+
+## Template References
+
+Study Assistant adapts structural ideas from public Markdown study-note systems,
+such as metadata/front matter, active-recall Q&A blocks, and PDF-aware page
+breaks. See `docs/template-references.md`.
 
 ## First Principle
 

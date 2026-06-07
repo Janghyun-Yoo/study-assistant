@@ -29,26 +29,36 @@ Optional:
 - Desired PDF length
 - Specific focus, such as drugs, diagnosis, differential diagnosis, or treatment
 
+## Template Basis
+
+Use `templates/compact-exam-note.md` as the preferred Markdown structure for
+new PDF notes.
+
+The template is adapted from common Markdown study-note patterns:
+
+- Metadata/front matter for source, system, topic, and storage location
+- Compact first-page summary for fast review
+- Table-heavy sections for diagnosis, treatment, and drugs
+- Active-recall Q&A at the end
+- Explicit page-break markers for PDF layout control
+
+Do not copy external templates verbatim. Use them only as structural inspiration.
+
 ## Output Sections
 
 Use this order unless the topic clearly requires a different structure.
 
-1. Source and Scope
-2. One-Line Summary
-3. Definition
-4. Core Pathophysiology
-5. Causes and Risk Factors
-6. Symptoms and Signs
-7. Diagnostic Approach
-8. Key Tests
-9. Differential Diagnosis
-10. Treatment Principles
-11. Drug Table
-12. Contraindications and Cautions
-13. Complications and Prevention
-14. National Exam Points
-15. Common Traps
-16. Five-Minute Review Questions
+1. Metadata
+2. Exam Snapshot
+3. Core Disease Script
+4. Diagnosis and Tests
+5. Treatment Algorithm
+6. Drug Table
+7. Contraindications and Cautions
+8. Differential Diagnosis
+9. National Exam Traps
+10. Active Recall Q&A
+11. Source Notes
 
 ## Drug Table Requirements
 
@@ -76,10 +86,27 @@ The preferred PDF is 2-4 pages per disease or topic.
 
 Suggested layout:
 
-1. Page 1: overview, definition, pathophysiology, symptoms
-2. Page 2: diagnosis, tests, differential diagnosis
-3. Page 3: treatment and drug table
-4. Page 4: exam points, traps, review questions
+1. Page 1: exam snapshot and core disease script
+2. Page 2: diagnosis, tests, and differential diagnosis
+3. Page 3: treatment algorithm and drug table
+4. Page 4: contraindications, exam traps, active recall
+
+Use page-break markers in Markdown when the note is long:
+
+```text
+---
+```
+
+When rendering the PDF, avoid dense prose blocks. Prefer short bullets, compact
+tables, and section boxes. The final PDF should be easy to scan in 5-10 minutes.
+
+Before delivering a PDF, verify:
+
+- Korean text renders correctly.
+- Tables fit within page width.
+- No row text is clipped.
+- Drug contraindications and adverse effects are separated.
+- The first page can stand alone as a rapid review card.
 
 ## Final Output
 
