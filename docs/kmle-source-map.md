@@ -25,6 +25,12 @@ Do not commit KMLE PDFs to GitHub.
 | 종양 | 2027 PACIFIC KMLE 06_혈액,종양,류마티스.pdf |
 | 류마티스 | 2027 PACIFIC KMLE 06_혈액,종양,류마티스.pdf |
 
+## Existing TOC Indexes
+
+| System | Index |
+|---|---|
+| 순환기 | `docs/kmle-cardiology-toc.md` |
+
 ## Use Rule
 
 For a generated note, use only the KMLE section matching the current system and
