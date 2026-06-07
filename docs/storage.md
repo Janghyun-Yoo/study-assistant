@@ -81,6 +81,28 @@ Study Assistant/Notes/순환기/심부전/pdf/heart-failure-compact-note.pdf
 Study Assistant/Notes/순환기/심부전/md/heart-failure-compact-note.md
 ```
 
+## Continuing Existing Topic Notes
+
+For the same system/topic, continue editing the existing Markdown source and
+then regenerate the PDF.
+
+Canonical latest files:
+
+```text
+Study Assistant/Notes/{system}/{topic}/md/{topic-slug}-compact-note.md
+Study Assistant/Notes/{system}/{topic}/pdf/{topic-slug}-compact-note.pdf
+```
+
+Optional experimental or snapshot files may use suffixes:
+
+```text
+{topic-slug}-compact-note-v2.md
+{topic-slug}-compact-note-2026-06-07.pdf
+```
+
+But the normal user-facing file should stay at the canonical filename so the
+same topic can be continued over time.
+
 ## Rules
 
 Commit to GitHub:

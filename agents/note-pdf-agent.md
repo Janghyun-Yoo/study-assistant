@@ -157,3 +157,40 @@ Suggested system folder names include:
 순환기, 호흡기, 소화기, 신장, 내분비, 감염, 혈액종양, 류마티스,
 신경, 정신, 소아, 산부인과, 외과, 응급, 예방의학, 의료법규
 ```
+
+## Continuation Rule
+
+If a note for the same `{system}/{topic}` already exists, continue from the
+existing Markdown source instead of creating a completely separate note.
+
+Use the Markdown file as the source of truth:
+
+```text
+Study Assistant/Notes/{system}/{topic}/md/{topic-slug}-compact-note.md
+```
+
+Then regenerate the PDF from that updated Markdown:
+
+```text
+Study Assistant/Notes/{system}/{topic}/pdf/{topic-slug}-compact-note.pdf
+```
+
+Recommended workflow:
+
+1. Check whether a matching topic folder already exists in iCloud.
+2. If an existing Markdown source exists, read it first.
+3. Merge new Allen/KMLE/source material into the relevant sections.
+4. Preserve the existing structure unless it is clearly broken.
+5. Update `Source Notes` and, when useful, add a short `Update Log` entry.
+6. Re-render the PDF with the same canonical filename.
+
+Versioned files such as `-v2` or date-stamped copies may be created for
+experiments, but the topic folder should keep one canonical latest file:
+
+```text
+{topic-slug}-compact-note.md
+{topic-slug}-compact-note.pdf
+```
+
+Do not append directly to a PDF as the primary workflow. PDFs are treated as
+rendered outputs; Markdown is the editable working file.

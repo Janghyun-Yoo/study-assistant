@@ -60,6 +60,21 @@ Use a horizontal rule as a page-break marker in PDF-oriented notes:
 ---
 ```
 
+## Continued Notes
+
+When updating an existing topic, edit the Markdown source first and regenerate
+the PDF. Do not treat the PDF as the editable source.
+
+Preferred canonical pair:
+
+```text
+md/{topic-slug}-compact-note.md
+pdf/{topic-slug}-compact-note.pdf
+```
+
+If an experimental version is needed, create a temporary `-v2` or date-stamped
+copy, then promote the best result back to the canonical filename.
+
 ## Visual QA Checklist
 
 - Korean text renders correctly.
