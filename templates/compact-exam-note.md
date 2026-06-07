@@ -13,7 +13,24 @@ storage_md: Study Assistant/Notes/{system}/{topic}/md/
 tags:
 ---
 
-# {Topic}
+# {System} > {Unit}
+
+Do not add a version/subtitle line under the top title in the PDF. Track
+versions in file names, front matter, or source notes instead.
+
+Gold standard reference: `heart-failure-compact-note` based on v2.9.
+
+Future notes should match that style unless the user asks otherwise:
+integrated Allen/KMLE content, exam snapshot, disease flow, concept bridge for
+important classifications placed where the concept is needed, readable tables,
+restrained blue/red emphasis, representative drug names with naming patterns,
+concise source notes, and slightly generous spacing above major section
+headings.
+
+When using an Allen page, begin from the short top overview/comment. Let that
+overview decide the exam-facing scope. Briefly mention basic concepts only when
+they are necessary for diagnosis, treatment, classification, or a common exam
+trap; otherwise omit them.
 
 ## Exam Snapshot
 
@@ -27,27 +44,38 @@ tags:
 | Must-not-miss cause |  |
 | Common trap |  |
 
+## Disease Flow
+
+| Step | High-Yield Flow |
+|---|---|
+| 원인/위험인자 |  |
+| 병태생리 |  |
+| 임상증상/징후 |  |
+| 진단/검사 |  |
+| 치료 |  |
+| 예방/추적 |  |
+
+Place any needed `Concept Bridge` immediately before the section that relies on
+that concept. Do not keep it directly after `Disease Flow` by default. For
+example, put an EF classification bridge just before clinical classification or
+treatment sections that depend on HFrEF/HFpEF, and put an acute-vs-chronic
+treatment bridge just before the treatment algorithm.
+
 ## Core Disease Script
 
 ### Definition
 
-[Allen 이론]
+Write one integrated definition. Do not split Allen and KMLE if the concept is
+substantially the same.
 
-
-[KMLE 개념]
+<small>출처: Allen page; KMLE p.__ if this section includes KMLE-only framing.</small>
 
 
 ### Pathophysiology
 
-[Allen 이론]
-
-
-[KMLE 개념]
-
-
-[외부 보강]
-
 - 
+
+<small>출처: Allen/KMLE/외부 보강 중 실제로 사용한 추가 내용만 표시.</small>
 
 ### Causes / Risk Factors
 
@@ -87,6 +115,16 @@ tags:
 
 ## Treatment
 
+## Concept Bridge: {classification or abbreviation, if needed here}
+
+Use this section when a subtype, abbreviation, staging system, or classification
+will affect the following diagnosis, test, treatment, prognosis, or exam
+strategy section. Skip it when there is no meaningful classification issue.
+
+| Item | Core Concept | Why It Matters | How to Confirm |
+|---|---|---|---|
+|  |  |  |  |
+
 ### Treatment Algorithm
 
 1.
@@ -95,9 +133,9 @@ tags:
 
 ### Drug Table
 
-| Drug/Class | Effect | Mechanism | When to Use | Contraindications | Cautions | Major Adverse Effects |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| Drug/Class | Representative drugs | Name pattern | Effect | Mechanism | When to Use | Contraindications | Cautions | Major Adverse Effects |
+|---|---|---|---|---|---|---|---|---|
+|  |  | e.g. `(~sartan)`, `(~pril)`, `(~dipine)`, `(~olol)`, `(~gliflozin)` |  |  |  |  |  |  |
 
 ### Contraindications / Cautions
 
@@ -111,13 +149,9 @@ tags:
 
 ### National Exam Points
 
-[KMLE 문제 포인트]
-
 - 
 
 ### Common Traps
-
-[시험 재구성]
 
 | Trap | Better Rule |
 |---|---|

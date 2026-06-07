@@ -5,11 +5,34 @@ Use this guide when converting Markdown study notes into PDF.
 ## Layout Principles
 
 - The first page should work as a standalone rapid-review card.
+- Use the top title format `{system} > {unit}`, such as `순환기 > 심부전`.
+- Do not place a version/subtitle line directly under the top PDF title.
 - Keep paragraphs short. Prefer bullets and tables.
 - Use tables for diagnosis, differential diagnosis, drugs, contraindications,
   and exam traps.
 - Separate contraindications, cautions, and adverse effects.
-- Use explicit page breaks when the PDF becomes crowded.
+- Use explicit page breaks when the PDF becomes crowded or when a major section
+  should start as a new review unit.
+- Do not force a draft note into a fixed page count. While a topic/unit is still
+  growing, leave room for future Allen/KMLE/problem-solving additions.
+- Do layout cleanup at the unit-level finalization step. For final versions,
+  remove awkward orphan pages and excessive blank space, but keep useful study
+  content rather than compressing mechanically.
+- Bold section headings need visible breathing room above them, especially after
+  tables and source-note boxes. For the current gold-standard compact-note
+  renderer, major H1 sections should generally use about 14-16 pt of space above
+  and 7-8 pt below; H2 sections should use about 11-13 pt above and 5-6 pt below.
+- `Exam Traps and Active Recall` should keep the same major-H1 spacing when it
+  follows a table or source-note box. Use a first-heading/no-top-space style
+  only when the section begins at the very top of a new page.
+- Use readable table text sizes. Disease-flow and core clinical tables should
+  use normal table text, not tiny footnote-sized text. Dense drug tables may be
+  slightly smaller, but should generally stay at or above about 6.5 pt with
+  enough line spacing to read on screen.
+- Use emphasis sparingly. Bold important concepts and key decision rules. Blue
+  bold can mark high-yield/frequently tested items, and red bold can mark
+  contraindications or major safety warnings. Avoid coloring large blocks of
+  text.
 
 ## Font
 
@@ -45,7 +68,7 @@ AppleGothic
 Use AppleGothic only as a last fallback for local rendering, because it is less
 comfortable for dense study PDFs.
 
-## Preferred Page Plan
+## Natural Page Plan
 
 1. Page 1: exam snapshot and core disease script
 2. Page 2: diagnosis, tests, and differential diagnosis
@@ -75,6 +98,19 @@ pdf/{topic-slug}-compact-note.pdf
 If an experimental version is needed, create a temporary `-v2` or date-stamped
 copy, then promote the best result back to the canonical filename.
 
+## Unit Finalization
+
+For a folder such as `순환기/심부전`, final PDF cleanup happens after the unit has
+absorbed the relevant Allen pages, KMLE concept material, and problem-solving
+notes. Until then, keep drafts readable but do not compress them aggressively.
+
+At finalization, review the rendered PDF as a whole and adjust:
+
+- Section order and page-break placement.
+- Heading spacing after tables and source-note boxes.
+- Orphan pages with only a small leftover note.
+- Excessive blank lower-page space when it harms review flow.
+
 ## Visual QA Checklist
 
 - Korean text renders correctly.
@@ -83,7 +119,12 @@ copy, then promote the best result back to the canonical filename.
 - Headings are visually distinct from body text.
 - Drug tables remain readable.
 - Font weight is not too heavy for paragraph reading.
-- The final PDF is 2-4 pages for one disease/topic whenever possible.
+- Section headings are not pressed tightly against preceding content.
+- `Exam Traps and Active Recall` has clear separation from the preceding
+  algorithm/table/source-note block.
+- Page breaks do not leave a page containing only a small trailing note.
+- Page count feels proportional to the amount of useful content; drafts may be
+  shorter or longer than the final topic note.
 
 ## Source-Inspired Patterns
 
