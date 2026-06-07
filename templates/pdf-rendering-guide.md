@@ -11,6 +11,40 @@ Use this guide when converting Markdown study notes into PDF.
 - Separate contraindications, cautions, and adverse effects.
 - Use explicit page breaks when the PDF becomes crowded.
 
+## Font
+
+Preferred Korean PDF font:
+
+```text
+Pretendard
+```
+
+Recommended weights:
+
+```text
+Title/section headings: Pretendard SemiBold
+Subtitles/table labels: Pretendard Medium
+Body/table text: Pretendard Regular
+```
+
+Why:
+
+- Good Hangul readability for screen and print.
+- Korean, English abbreviations, and numbers sit together more naturally than
+  the default macOS fallback fonts.
+- Distributed under the SIL Open Font License, so PDF embedding is acceptable.
+
+Fallbacks:
+
+```text
+Noto Sans KR
+Apple SD Gothic Neo
+AppleGothic
+```
+
+Use AppleGothic only as a last fallback for local rendering, because it is less
+comfortable for dense study PDFs.
+
 ## Preferred Page Plan
 
 1. Page 1: exam snapshot and core disease script
@@ -33,6 +67,7 @@ Use a horizontal rule as a page-break marker in PDF-oriented notes:
 - No table row is clipped.
 - Headings are visually distinct from body text.
 - Drug tables remain readable.
+- Font weight is not too heavy for paragraph reading.
 - The final PDF is 2-4 pages for one disease/topic whenever possible.
 
 ## Source-Inspired Patterns
