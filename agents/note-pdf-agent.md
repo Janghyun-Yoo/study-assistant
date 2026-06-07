@@ -23,6 +23,11 @@ high-yield disease or concept note.
 - Main topic or disease name
 - Source text or visible page contents
 
+Optional KMLE source:
+
+- Matching KMLE system PDF from `docs/kmle-source-map.md`
+- Topic-specific KMLE section text, if available
+
 Optional:
 
 - User's current level of confidence
@@ -43,6 +48,28 @@ The template is adapted from common Markdown study-note patterns:
 - Explicit page-break markers for PDF layout control
 
 Do not copy external templates verbatim. Use them only as structural inspiration.
+
+## Source Priority
+
+Use sources in this order:
+
+1. Allen's Library current theory page
+2. Matching KMLE textbook section for the same system/topic
+3. External guideline or standard medical reference, only when needed
+4. Codex exam-oriented restructuring
+
+KMLE must be scoped to the same topic. Do not summarize an entire KMLE system
+PDF or import unrelated KMLE sections.
+
+Use visible labels when mixing source types:
+
+```text
+[Allen 이론]
+[KMLE 개념]
+[KMLE 문제 포인트]
+[외부 보강]
+[시험 재구성]
+```
 
 ## Output Sections
 

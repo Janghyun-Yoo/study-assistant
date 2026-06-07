@@ -5,6 +5,7 @@ type: compact-exam-note
 system:
 topic:
 source: Allen's Library
+kmle_source:
 url:
 generated:
 storage_pdf: Study Assistant/Notes/{system}/{topic}/pdf/
@@ -30,8 +31,21 @@ tags:
 
 ### Definition
 
+[Allen 이론]
+
+
+[KMLE 개념]
+
 
 ### Pathophysiology
+
+[Allen 이론]
+
+
+[KMLE 개념]
+
+
+[외부 보강]
 
 - 
 
@@ -97,9 +111,13 @@ tags:
 
 ### National Exam Points
 
+[KMLE 문제 포인트]
+
 - 
 
 ### Common Traps
+
+[시험 재구성]
 
 | Trap | Better Rule |
 |---|---|
@@ -114,5 +132,6 @@ tags:
 ### Source Notes
 
 - Allen's Library page:
+- KMLE source:
 - External reference check:
 - Guideline-sensitive points:
