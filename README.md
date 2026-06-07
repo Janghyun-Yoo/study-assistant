@@ -12,6 +12,17 @@ MacBook, iPad, and other Apple devices.
 - Wrong-answer agent: turns mistakes into structured review notes.
 - Quiz agent: generates practice questions from selected materials.
 
+## Current Agent Setup
+
+This repository now starts with two Allen's Library-focused Codex agents:
+
+- Compact note PDF agent: turns theory pages into national-exam-style compact
+  notes with stronger drug tables, contraindications, cautions, and exam traps.
+- Problem-solving helper agent: analyzes reasoning flow, wrong answers, and
+  reusable decision rules for national exam questions.
+
+See `docs/study-system.md` for the full study-system design.
+
 ## Storage Model
 
 Code and project configuration are stored here:
@@ -34,7 +45,11 @@ study-assistant/
 ├── .gitignore
 ├── .env.example
 ├── docs/
-│   └── storage.md
+│   ├── storage.md
+│   └── study-system.md
+├── agents/
+├── instructions/
+├── templates/
 ├── app/
 ├── scripts/
 └── data/
