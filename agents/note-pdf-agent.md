@@ -83,7 +83,9 @@ Suggested layout:
 
 ## Final Output
 
-Create a Markdown note first. If requested, render it as PDF and save it under:
+Create a Markdown note first. If requested, render it as PDF.
+
+Temporary or repo-local outputs may be saved under:
 
 ```text
 outputs/pdf/
@@ -93,4 +95,38 @@ Also save the Markdown version under:
 
 ```text
 outputs/notes/
+```
+
+## iCloud Storage Rule
+
+Final personal study notes should also be copied to iCloud Drive using this
+system/topic hierarchy:
+
+```text
+~/Library/Mobile Documents/com~apple~CloudDocs/Study Assistant/Notes/{system}/{topic}/
+```
+
+Examples:
+
+```text
+Study Assistant/Notes/순환기/심부전/
+Study Assistant/Notes/호흡기/COPD/
+Study Assistant/Notes/소화기/간경변/
+```
+
+Inside each topic folder, keep PDF and Markdown files in separate subfolders:
+
+```text
+Study Assistant/Notes/{system}/{topic}/pdf/{topic-slug}-compact-note.pdf
+Study Assistant/Notes/{system}/{topic}/md/{topic-slug}-compact-note.md
+```
+
+If the system or topic is unclear, infer it from the Allen's Library breadcrumb,
+page title, or table of contents. If still uncertain, ask the user before saving.
+
+Suggested system folder names include:
+
+```text
+순환기, 호흡기, 소화기, 신장, 내분비, 감염, 혈액종양, 류마티스,
+신경, 정신, 소아, 산부인과, 외과, 응급, 예방의학, 의료법규
 ```

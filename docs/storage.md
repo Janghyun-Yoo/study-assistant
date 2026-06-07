@@ -37,6 +37,12 @@ Study Assistant/
 ├── Inbox/
 ├── Library/
 ├── Notes/
+│   ├── 순환기/
+│   │   └── 심부전/
+│   │       ├── pdf/
+│   │       └── md/
+│   ├── 호흡기/
+│   └── 소화기/
 └── Exports/
 ```
 
@@ -51,6 +57,29 @@ Purpose:
 - Quiz exports
 
 These files should not be committed to GitHub.
+
+## Notes Organization
+
+Generated study notes should use this hierarchy:
+
+```text
+Study Assistant/Notes/{system}/{topic}/
+```
+
+Examples:
+
+```text
+Study Assistant/Notes/순환기/심부전/
+Study Assistant/Notes/호흡기/COPD/
+Study Assistant/Notes/소화기/간경변/
+```
+
+For compact note outputs, keep the PDF and editable Markdown source together:
+
+```text
+Study Assistant/Notes/순환기/심부전/pdf/heart-failure-compact-note.pdf
+Study Assistant/Notes/순환기/심부전/md/heart-failure-compact-note.md
+```
 
 ## Rules
 
