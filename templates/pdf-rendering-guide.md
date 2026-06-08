@@ -22,6 +22,16 @@ Use this guide when converting Markdown study notes into PDF.
   tables and source-note boxes. For the current gold-standard compact-note
   renderer, major H1 sections should generally use about 14-16 pt of space above
   and 7-8 pt below; H2 sections should use about 11-13 pt above and 5-6 pt below.
+- Do not leave a section heading stranded at the bottom of a page when the
+  table, algorithm, or first explanatory paragraph starts on the next page. If
+  there is not enough room below a major heading for the first meaningful block,
+  move the heading itself to the next page. This is especially important for
+  `Concept Bridge`, treatment algorithms, dense drug tables, and `Exam Traps and
+  Active Recall`.
+- Avoid table widows: do not leave only one or two trailing rows of a table on
+  the next page when the table could instead start cleanly on the following
+  page. For compact notes, subheadings that introduce tables should reserve
+  enough space for the heading plus a meaningful first chunk of the table.
 - `Exam Traps and Active Recall` should keep the same major-H1 spacing when it
   follows a table or source-note box. Use a first-heading/no-top-space style
   only when the section begins at the very top of a new page.
@@ -50,6 +60,38 @@ Subtitles/table labels: Pretendard Medium
 Body/table text: Pretendard Regular
 ```
 
+Renderer requirement:
+
+```text
+Register and use three separate faces when available:
+- Pretendard Regular for body paragraphs and table cells
+- Pretendard Medium for table header labels and compact sublabels
+- Pretendard SemiBold for the title, section headings, and bold emphasis
+```
+
+Before generating or updating a canonical PDF, verify that Pretendard is
+installed in one of the local macOS font locations:
+
+```text
+~/Library/Fonts/
+/Library/Fonts/
+```
+
+Expected installable files include:
+
+```text
+Pretendard-Regular.otf
+Pretendard-Medium.otf
+Pretendard-SemiBold.otf
+```
+
+Equivalent `.ttf` files are also acceptable if the renderer can embed them.
+For the current ReportLab-based compact-note renderer, the official Pretendard
+OTF files may fail to embed because they use PostScript/CFF outlines. If that
+happens, install the official `public/static/alternative/*.ttf` files from the
+same Pretendard release as well; these TrueType files are the preferred
+Pretendard source for this renderer.
+
 Why:
 
 - Good Hangul readability for screen and print.
@@ -67,6 +109,14 @@ AppleGothic
 
 Use AppleGothic only as a last fallback for local rendering, because it is less
 comfortable for dense study PDFs.
+
+If Pretendard is missing, install it from the official Pretendard release and
+place the Regular, Medium, and SemiBold font files in `~/Library/Fonts/` or
+`/Library/Fonts/`, then regenerate the PDF. Until it is installed, prefer
+`Noto Sans KR` if locally available. `Apple SD Gothic Neo` may appear in Font
+Book as a macOS system font, but some PDF renderers cannot embed its `.ttc`
+file; in that case, fall back only temporarily. `AppleGothic` remains the last
+local fallback.
 
 ## Natural Page Plan
 
@@ -108,6 +158,9 @@ At finalization, review the rendered PDF as a whole and adjust:
 
 - Section order and page-break placement.
 - Heading spacing after tables and source-note boxes.
+- Heading orphans, where a major heading appears alone at the bottom of a page
+  and its table or first paragraph begins on the next page.
+- Table widows, where only one or two final rows spill to the next page.
 - Orphan pages with only a small leftover note.
 - Excessive blank lower-page space when it harms review flow.
 
