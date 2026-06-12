@@ -26,7 +26,8 @@ from reportlab.platypus import (
 
 
 FONT_DIRS = [
-    Path("/Users/jhsmacmini/Library/Fonts"),
+    Path(__file__).resolve().parents[1] / "assets" / "fonts",
+    Path.home() / "Library" / "Fonts",
     Path("/Library/Fonts"),
     Path("/System/Library/Fonts"),
     Path("/System/Library/Fonts/Supplemental"),
@@ -159,6 +160,7 @@ def inline_markup(text: str) -> str:
     )
     text = html.escape(text, quote=False)
     text = re.sub(r"&lt;(font|b|/font|/b)(.*?)&gt;", r"<\1\2>", text)
+    text = re.sub(r"&lt;br\s*/?&gt;", "<br/>", text, flags=re.IGNORECASE)
     text = re.sub(r"\*\*(.*?)\*\*", r"<b>\1</b>", text)
     text = re.sub(r"`([^`]+)`", r"<font color='#374151'>\1</font>", text)
     text = text.replace("&lt;=", "&le;").replace("&gt;=", "&ge;")
@@ -169,18 +171,38 @@ def paragraph(text: str, style: ParagraphStyle) -> Paragraph:
     return Paragraph(inline_markup(text), style)
 
 
+def normalized_header(rows: list[list[str]]) -> list[str]:
+    if not rows:
+        return []
+    return [re.sub(r"<.*?>", "", cell).strip().lower() for cell in rows[0]]
+
+
 def table_widths(rows: list[list[str]], available_width: float) -> list[float]:
     cols = max(len(row) for row in rows)
+    header = normalized_header(rows)
     if cols <= 2:
-        weights = [0.42, 0.58]
+        if header and header[0] == "field":
+            weights = [0.24, 0.76]
+        elif header and header[0] in {"question", "trap"}:
+            weights = [0.40, 0.60]
+        else:
+            weights = [0.34, 0.66]
     elif cols == 3:
-        weights = [0.24, 0.40, 0.36]
+        if header and header[0] == "step":
+            weights = [0.13, 0.44, 0.43]
+        elif header and header[0] in {"test", "finding", "category", "class"}:
+            weights = [0.17, 0.43, 0.40]
+        else:
+            weights = [0.20, 0.43, 0.37]
     elif cols == 4:
-        weights = [0.18, 0.28, 0.30, 0.24]
+        if header and header[0] in {"pattern", "item", "situation", "cause group", "개념"}:
+            weights = [0.18, 0.31, 0.27, 0.24]
+        else:
+            weights = [0.17, 0.29, 0.30, 0.24]
     elif cols == 5:
-        weights = [0.16, 0.22, 0.22, 0.22, 0.18]
+        weights = [0.14, 0.23, 0.22, 0.23, 0.18]
     elif cols == 6:
-        weights = [0.14, 0.19, 0.14, 0.20, 0.18, 0.15]
+        weights = [0.12, 0.20, 0.14, 0.20, 0.19, 0.15]
     else:
         weights = [1 / cols] * cols
     total = sum(weights)
@@ -326,11 +348,18 @@ def build_pdf(markdown_path: Path, pdf_path: Path) -> None:
             story.append(paragraph(line[2:].strip(), h1))
             first_h1 = False
         elif line.startswith("## "):
-            story.append(CondPageBreak(58 * mm))
-            story.append(paragraph(line[3:].strip(), h2))
+            heading = line[3:].strip()
+            min_space = 30 * mm if heading == "Source Notes" else 58 * mm
+            story.append(CondPageBreak(min_space))
+            story.append(paragraph(heading, h2))
         elif line.startswith("### "):
             heading = line[4:].strip()
-            min_space = 105 * mm if heading in {"Common Traps", "Active Recall Questions"} else 42 * mm
+            if heading in {"Common Traps", "Active Recall Questions"}:
+                min_space = 105 * mm
+            elif heading == "PAH Drug Mini-Table":
+                min_space = 88 * mm
+            else:
+                min_space = 42 * mm
             story.append(CondPageBreak(min_space))
             story.append(paragraph(heading, h3))
         elif line.startswith("<small>") and line.endswith("</small>"):

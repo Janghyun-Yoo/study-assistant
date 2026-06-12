@@ -54,6 +54,16 @@ restrained color emphasis, drug names with naming patterns, source notes for
 KMLE/external additions, and the `{system} > {unit}` title format. Section
 headings such as `Disease Flow` and `Concept Bridge` should have visible
 breathing room above them, especially after tables or source-note boxes.
+Tables should allocate width according to content: short label columns such as
+`Field`, `Step`, `Test`, `Category`, `Class`, `Item`, `Pattern`, `Situation`,
+and `Cause Group` should be compact, while explanation-heavy columns such as
+`High-Yield Answer`, `Core Concept`, `Mechanism`, `Mechanism Flow`, `Role`,
+`Better Rule`, and `Treatment Anchor` should get the extra width. If a column
+repeatedly wraps awkwardly, compress the wording, add semantic `<br/>` breaks,
+or split/reshape the table instead of accepting a cramped PDF table.
+For `Step / Flow / Cue` tables such as `Disease Flow`, make the `Step` column
+the narrowest column and give the saved width to `High-Yield Flow` and
+especially `Exam Cue`.
 `Exam Traps and Active Recall` should also keep normal major-section spacing
 when it follows an algorithm, table, or source-note box; use reduced top spacing
 only if the section starts at the top of a new page.
@@ -136,15 +146,44 @@ For disease topics, preserve a clinical reasoning flow. The reader should be
 able to follow:
 
 ```text
-definition -> causes/risk factors -> pathophysiology -> symptoms/signs
--> diagnosis/tests -> treatment -> prevention/follow-up -> exam traps
+definition → causes/risk factors → pathophysiology → symptoms/signs
+→ diagnosis/tests → treatment → prevention/follow-up → exam traps
 ```
 
 When useful, include a compact `Disease Flow` table near the beginning:
 
 ```text
-Cause/Risk -> Mechanism -> Clinical Clue -> Diagnostic Test -> Treatment
+Cause/Risk → Mechanism → Clinical Clue → Diagnostic Test → Treatment
 ```
+
+If a topic mixes multiple clinically important subtypes, directions, or
+parallel mechanisms, split the flow instead of writing one blended mechanism.
+Each subtype should have its own short causal chain when it leads to different
+symptoms, tests, treatment choices, or exam traps. For heart failure, distinguish
+left-sided and right-sided flows:
+
+```text
+**좌심부전:** LV dysfunction → ↓CO + ↑LV filling pressure → pulmonary congestion<br/>**우심부전/폐혈관 축:** RV dysfunction or ↑PVR → ↑systemic venous pressure → JVP/edema/hepatomegaly
+```
+
+Apply the same rule to mixed entities such as left/right disease,
+forward/backward failure, obstructive/restrictive patterns, acute/chronic forms,
+or classification groups that change clinical reasoning.
+
+This is a whole-note organization rule, not just a `Disease Flow` rule. Once a
+meaningful subtype or mechanism split is introduced, carry that split through
+the later pathophysiology, clinical signs, diagnostic approach, treatment flow,
+exam traps, and active recall questions whenever it changes reasoning. The note
+should not separate mechanisms in the first table and then collapse them back
+into a generic paragraph or treatment list.
+
+Formatting matters. When multiple branches appear inside one table cell, put
+each branch on its own line using `<br/>`. Avoid semicolon-only or sentence-only
+separation for subtype chains, because it becomes hard to scan in the PDF.
+Bold only the subtype/branch label at the start of each branch line, then keep
+the causal chain or explanation in regular weight unless it deserves separate
+high-yield emphasis.
+Use actual arrow symbols (`→`) for causal flows instead of ASCII `->`.
 
 Use this order unless the topic clearly requires a different structure.
 
@@ -186,14 +225,34 @@ The bridge should answer four questions:
 4. What test, threshold, or clue confirms the distinction?
 ```
 
+If the classification, score, stage, severity grade, lab result, or imaging
+criterion has concrete cutoff values, include those numbers in the bridge. Do
+not write only qualitative labels such as "reduced", "preserved", "positive",
+"severe", or "high-risk" when the source gives a threshold. For EF-based heart
+failure classification, write `HFrEF: LVEF ≤40%`, `HFmrEF: 41-49%`, and
+`HFpEF: ≥50% + evidence of increased filling pressure`.
+
+When introducing major concept terms in a concept bridge, classification table,
+or comparison table, put the bilingual label in the leftmost row-label column
+(`Item`, `Pattern`, `Cause Group`, `Situation`, etc.). Prefer Korean +
+abbreviation to keep tables readable, and place the English/abbreviation on the
+next line with `<br/>`, e.g. `박출률 감소 심부전<br/>(HFrEF)`,
+`폐고혈압<br/>(PH)`, `폐동맥고혈압<br/>(PAH)`, and
+`폐성심<br/>(cor pulmonale)`. Keep the explanation cells focused on criteria,
+mechanisms, and exam cues instead of repeating full English names. In prose
+definitions, write the Korean term with the standard English term or
+abbreviation in parentheses on first use, then use the compact Korean or
+abbreviated form afterward.
+
 Keep it compact: usually 3-6 bullets or a small table. Do not add a bridge for
 every familiar word. Use it for concepts that would otherwise make later drug
 tables, algorithms, or exam traps feel ungrounded.
 
 Examples:
 
-- HFrEF/HFpEF: EF-based classification; systolic vs filling/diastolic problem;
-  echo confirms; treatment evidence differs.
+- HFrEF/HFmrEF/HFpEF: EF-based classification with cutoffs; HFrEF LVEF ≤40%,
+  HFmrEF 41-49%, HFpEF ≥50% plus filling-pressure evidence; echo confirms;
+  treatment evidence differs.
 - STEMI/NSTEMI/UA: ECG and troponin-based ACS classification; reperfusion and
   antithrombotic strategy differ.
 - DKA/HHS: ketosis/acidosis vs severe hyperglycemic dehydration; fluid,
@@ -233,8 +292,23 @@ exam-style questions.
 
 - Highlight findings that move the diagnosis from vague symptom to specific
   disease.
+- Keep short table label columns compact and reserve more width for mechanism,
+  diagnostic reasoning, treatment logic, and exam-trap explanations. In
+  2-column `Field`/answer tables, the first column should usually be about one
+  quarter of the table width.
 - Preserve the disease flow: why it happens, how it presents, how it is
   confirmed, and how it is treated.
+- When multiple mechanisms or subtypes are clinically meaningful, separate
+  their causal chains instead of averaging them into one pathophysiology line.
+- Keep clinically meaningful splits consistent across the whole note: the same
+  branches should reappear in symptoms, diagnosis, treatment, traps, and recall
+  when they affect problem solving.
+- Use `<br/>` inside table cells to put parallel subtype/mechanism branches on
+  separate lines.
+- Bold subtype/branch labels at the start of each branch line, but do not bold
+  the entire causal chain.
+- Use actual arrow symbols (`→`) for causal and mechanism flows; do not use
+  ASCII `->` in generated study notes.
 - Identify the test that confirms or classifies the diagnosis.
 - Distinguish first-line treatment, add-on treatment, and emergency treatment.
 - List "do not use" situations for important medications.

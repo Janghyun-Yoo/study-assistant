@@ -12,6 +12,9 @@ data/*
 .cache/
 cache/
 uploads/
+tmp/
+__pycache__/
+**/__pycache__/
 
 # Databases
 *.db
@@ -30,4 +33,3 @@ logs/
 
 # OS files
 .DS_Store
-

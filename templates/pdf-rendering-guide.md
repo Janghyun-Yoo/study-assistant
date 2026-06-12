@@ -10,6 +10,21 @@ Use this guide when converting Markdown study notes into PDF.
 - Keep paragraphs short. Prefer bullets and tables.
 - Use tables for diagnosis, differential diagnosis, drugs, contraindications,
   and exam traps.
+- Avoid over-wide first columns when they contain short labels. For every table,
+  choose widths by column role and average text length. In tables such as
+  `Exam Snapshot`, `Disease Flow`, `Diagnosis and Tests`, and drug tables, keep
+  label columns compact and give more width to explanation-heavy columns.
+- In 2-column `Field`/answer tables, the first column should usually be about
+  one quarter of the table width. If a column repeatedly wraps awkwardly,
+  compress wording, add semantic `<br/>` breaks, or split/reshape the table.
+- In `Step / Flow / Cue` tables such as `Disease Flow`, the `Step` column should
+  be the narrowest column, with enough width reserved for `Exam Cue` to avoid
+  one- or two-word trailing wraps.
+- For concept-bridge or comparison tables where the first column carries
+  bilingual concept labels, split the label with `<br/>`, such as
+  `폐동맥고혈압<br/>(PAH)`, and keep the first column only wide enough for that
+  two-line label. Give the saved width to mechanism/core-concept columns so
+  causal chains do not wrap awkwardly.
 - Separate contraindications, cautions, and adverse effects.
 - Use explicit page breaks when the PDF becomes crowded or when a major section
   should start as a new review unit.
@@ -43,6 +58,9 @@ Use this guide when converting Markdown study notes into PDF.
   bold can mark high-yield/frequently tested items, and red bold can mark
   contraindications or major safety warnings. Avoid coloring large blocks of
   text.
+- In subtype-split table cells, bold only the branch label at the start of each
+  line, such as `좌심부전:` or `ADHF/폐부종:`, so the split is scannable without
+  making the whole cell visually heavy.
 
 ## Font
 
@@ -51,6 +69,23 @@ Preferred Korean PDF font:
 ```text
 Pretendard
 ```
+
+The compact-note renderer should first look for bundled project fonts in:
+
+```text
+assets/fonts/
+```
+
+This project expects these TrueType files there when producing canonical PDFs:
+
+```text
+Pretendard-Regular.ttf
+Pretendard-Medium.ttf
+Pretendard-SemiBold.ttf
+```
+
+Keeping the fonts in the repo makes PDF output reproducible even when the local
+macOS user font folder does not have Pretendard installed.
 
 Recommended weights:
 
