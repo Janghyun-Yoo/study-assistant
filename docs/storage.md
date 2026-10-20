@@ -60,7 +60,9 @@ Purpose:
 - Wrong-answer notes
 - Quiz exports
 
-These files should not be committed to GitHub.
+Keep the iCloud folder and raw learning sources out of GitHub. The selected
+reference outputs already tracked under `outputs/` are the repository exception;
+review changes explicitly rather than committing all personal study files.
 
 ## Notes Organization
 
@@ -130,12 +132,14 @@ Commit to GitHub:
 - Tests
 - `.env.example`
 - Database migrations
+- Reviewed updates to the existing reference note, PDF, and selected assets in
+  `outputs/` (see README; source-image restrictions still apply)
 
 Do not commit to GitHub:
 
 - `.env`
 - API keys
-- Real study files
+- Unselected personal study files and raw textbooks/source uploads
 - iCloud files
 - Local databases
 - Embedding caches

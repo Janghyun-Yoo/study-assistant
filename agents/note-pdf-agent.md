@@ -42,8 +42,8 @@ new PDF notes.
 Gold standard reference:
 
 ```text
-outputs/notes/heart-failure-compact-note.md
-outputs/pdf/heart-failure-compact-note.pdf
+outputs/notes/순환기/심부전/heart-failure-compact-note.md
+outputs/pdf/순환기/심부전/heart-failure-compact-note.pdf
 ```
 
 Use the latest canonical heart-failure compact note as the current quality baseline for future

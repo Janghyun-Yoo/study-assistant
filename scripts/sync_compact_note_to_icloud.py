@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import tempfile
+import unicodedata
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -51,7 +52,20 @@ def safe_part(value: str, label: str) -> str:
         raise ValueError(f"{label} must not be empty")
     if "/" in value or "\0" in value:
         raise ValueError(f"{label} must not contain path separators")
-    return value.strip()
+    return unicodedata.normalize("NFC", value.strip())
+
+
+def normalized_name(value: str) -> str:
+    """Compare Unicode spellings without renaming any existing file."""
+    return unicodedata.normalize("NFC", value)
+
+
+def same_file(left: Path, right: Path) -> bool:
+    """Path spelling can differ on macOS even when both paths name one file."""
+    try:
+        return left.samefile(right)
+    except FileNotFoundError:
+        return False
 
 
 def parse_date(value: str | None) -> str:
@@ -84,12 +98,12 @@ def build_paths(storage_root: Path, system: str, topic: str) -> SyncPaths:
 
 def existing_versions(paths: SyncPaths, topic: str, date_text: str) -> list[int]:
     versions: list[int] = []
-    pattern = re.compile(rf"^{re.escape(topic)}_{date_text}_ver\.(\d+)\.(?:pdf|md)$")
+    pattern = re.compile(rf"^{re.escape(normalized_name(topic))}_{date_text}_ver\.(\d+)\.(?:pdf|md)$")
     for archive_dir in (paths.archive_pdf_dir, paths.archive_md_dir):
         if not archive_dir.exists():
             continue
         for path in archive_dir.iterdir():
-            match = pattern.match(path.name)
+            match = pattern.match(normalized_name(path.name))
             if match:
                 versions.append(int(match.group(1)))
     return versions
@@ -117,18 +131,22 @@ def reserve_archive_version(paths: SyncPaths, topic: str, date_text: str, versio
     return version
 
 
+def active_pdf_variants(paths: SyncPaths, topic: str) -> list[Path]:
+    # glob with a Korean prefix may miss decomposed filenames on macOS.
+    return sorted(
+        path
+        for path in paths.active_pdf.parent.glob("*.pdf")
+        if normalized_name(path.name).startswith(normalized_name(topic))
+        and not same_file(path, paths.active_pdf)
+    )
+
+
 def legacy_pdf_candidates(paths: SyncPaths, topic: str) -> list[Path]:
     candidates: list[Path] = []
     if paths.legacy_pdf_dir.exists():
         candidates.extend(sorted(paths.legacy_pdf_dir.glob("*.pdf")))
     if paths.active_pdf.parent.exists():
-        candidates.extend(
-            sorted(
-                path
-                for path in paths.active_pdf.parent.glob(f"{topic}*.pdf")
-                if path != paths.active_pdf
-            )
-        )
+        candidates.extend(active_pdf_variants(paths, topic))
     return dedupe_paths(candidates)
 
 
@@ -136,15 +154,23 @@ def legacy_md_candidates(paths: SyncPaths, topic: str) -> list[Path]:
     md_dir = paths.active_md.parent
     if not md_dir.exists():
         return []
-    return sorted(path for path in md_dir.glob("*.md") if path != paths.active_md)
+    return dedupe_paths(sorted(
+        path for path in md_dir.glob("*.md") if not same_file(path, paths.active_md)
+    ))
 
 
 def legacy_groups(paths: SyncPaths, topic: str) -> list[LegacyGroup]:
     by_stem: dict[str, dict[str, Path]] = {}
-    for pdf in legacy_pdf_candidates(paths, topic):
-        by_stem.setdefault(pdf.stem, {})["pdf"] = pdf
-    for md in legacy_md_candidates(paths, topic):
-        by_stem.setdefault(md.stem, {})["md"] = md
+    for kind, candidates in (
+        ("pdf", legacy_pdf_candidates(paths, topic)),
+        ("md", legacy_md_candidates(paths, topic)),
+    ):
+        for path in candidates:
+            group = by_stem.setdefault(normalized_name(path.stem), {})
+            previous = group.get(kind)
+            if previous is not None and not same_file(previous, path):
+                raise ValueError(f"Distinct files share a normalized name: {previous}, {path}")
+            group[kind] = path
     return [
         LegacyGroup(stem=stem, pdf=items.get("pdf"), md=items.get("md"))
         for stem, items in sorted(by_stem.items())
@@ -152,13 +178,14 @@ def legacy_groups(paths: SyncPaths, topic: str) -> list[LegacyGroup]:
 
 
 def dedupe_paths(paths: list[Path]) -> list[Path]:
-    seen: set[Path] = set()
+    seen: set[tuple[int, int]] = set()
     result: list[Path] = []
     for path in paths:
-        resolved = path.resolve()
-        if resolved not in seen:
+        stat = path.stat()
+        identity = (stat.st_dev, stat.st_ino)
+        if identity not in seen:
             result.append(path)
-            seen.add(resolved)
+            seen.add(identity)
     return result
 
 
@@ -174,6 +201,8 @@ def archive_file(src: Path, dest: Path, dry_run: bool) -> None:
     print(f"archive: {src} -> {dest}")
     if dry_run:
         return
+    if dest.exists():
+        raise FileExistsError(f"Refusing to replace an existing archive: {dest}")
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.move(str(src), str(dest))
 
@@ -311,11 +340,7 @@ def validate_sync(paths: SyncPaths, topic: str) -> None:
         if leftovers:
             names = ", ".join(path.name for path in leftovers[:5])
             raise RuntimeError(f"legacy topic PDF folder still has PDFs: {names}")
-    variants = sorted(
-        path
-        for path in paths.active_pdf.parent.glob(f"{topic}*.pdf")
-        if path != paths.active_pdf
-    )
+    variants = active_pdf_variants(paths, topic)
     if variants:
         names = ", ".join(path.name for path in variants[:5])
         raise RuntimeError(f"active PDF folder has same-topic variants: {names}")

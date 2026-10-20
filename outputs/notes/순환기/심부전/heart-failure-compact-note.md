@@ -9,8 +9,8 @@ overview_url: https://www.allenslibrary.com/study/chapter/1800/theory/4194
 treatment_url: https://www.allenslibrary.com/study/chapter/1800/theory/4196
 pulmonary_htn_url: https://www.allenslibrary.com/study/chapter/1800/theory/4197
 generated: 2026-06-08
-storage_pdf: Study Assistant/Notes/순환기/심부전/pdf/
-storage_md: Study Assistant/Notes/순환기/심부전/md/
+storage_pdf: Study Assistant/PDFs/순환기/심부전.pdf
+storage_md: Study Assistant/Notes/순환기/심부전/md/심부전.md
 tags: [순환기, 심부전, HFrEF, HFpEF, 폐고혈압, 폐성심, KMLE, 국시]
 ---
 
