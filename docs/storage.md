@@ -36,11 +36,15 @@ Suggested structure:
 Study Assistant/
 ├── Inbox/
 ├── Library/
+├── PDFs/
+│   └── 순환기/
+│       └── 심부전.pdf
 ├── Notes/
 │   ├── 순환기/
 │   │   └── 심부전/
-│   │       ├── pdf/
-│   │       └── md/
+│   │       ├── md/
+│   │       ├── screenshot/
+│   │       └── _archive/
 │   ├── 호흡기/
 │   └── 소화기/
 └── Exports/
@@ -74,11 +78,12 @@ Study Assistant/Notes/호흡기/COPD/
 Study Assistant/Notes/소화기/간경변/
 ```
 
-For compact note outputs, keep the PDF and editable Markdown source together:
+For compact note outputs, keep the latest user-facing PDF in the top-level
+PDF collection and keep the editable Markdown source in the topic folder:
 
 ```text
-Study Assistant/Notes/순환기/심부전/pdf/heart-failure-compact-note.pdf
-Study Assistant/Notes/순환기/심부전/md/heart-failure-compact-note.md
+Study Assistant/PDFs/순환기/심부전.pdf
+Study Assistant/Notes/순환기/심부전/md/심부전.md
 ```
 
 ## Continuing Existing Topic Notes
@@ -89,19 +94,30 @@ then regenerate the PDF.
 Canonical latest files:
 
 ```text
-Study Assistant/Notes/{system}/{topic}/md/{topic-slug}-compact-note.md
-Study Assistant/Notes/{system}/{topic}/pdf/{topic-slug}-compact-note.pdf
+Study Assistant/PDFs/{system}/{topic}.pdf
+Study Assistant/Notes/{system}/{topic}/md/{topic}.md
 ```
 
-Optional experimental or snapshot files may use suffixes:
+Before replacing canonical files, archive the previous version with the topic,
+date, and version number:
 
 ```text
-{topic-slug}-compact-note-v2.md
-{topic-slug}-compact-note-2026-06-07.pdf
+Study Assistant/Notes/{system}/{topic}/_archive/pdf/{topic}_YYMMDD_ver.N.pdf
+Study Assistant/Notes/{system}/{topic}/_archive/md/{topic}_YYMMDD_ver.N.md
 ```
 
-But the normal user-facing file should stay at the canonical filename so the
-same topic can be continued over time.
+For example, the first archived heart failure files on July 6, 2026 are:
+
+```text
+심부전_260706_ver.1.pdf
+심부전_260706_ver.1.md
+```
+
+If the same topic is updated again on the same date, increment the version
+number. On a new date, start again at `ver.1`.
+
+Do not leave experimental, dated, or cache-busting PDFs in the active PDF
+collection. Use temporary local output or the topic `_archive` folder instead.
 
 ## Rules
 

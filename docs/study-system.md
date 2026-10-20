@@ -73,27 +73,27 @@ was [my thought process]. Analyze the reasoning and make a review note.
 
 ## iCloud Note Storage
 
-Generated personal study notes should be organized in iCloud Drive by medical
-system and topic:
+Generated personal study notes should be organized in iCloud Drive with
+user-facing PDFs separated from editable topic materials.
 
 ```text
+~/Library/Mobile Documents/com~apple~CloudDocs/Study Assistant/PDFs/{system}/{topic}.pdf
 ~/Library/Mobile Documents/com~apple~CloudDocs/Study Assistant/Notes/{system}/{topic}/
 ```
 
 Examples:
 
 ```text
+Study Assistant/PDFs/순환기/심부전.pdf
 Study Assistant/Notes/순환기/심부전/
-Study Assistant/Notes/호흡기/COPD/
-Study Assistant/Notes/소화기/간경변/
 ```
 
-The compact note PDF agent should save PDF and editable Markdown files in
-separate subfolders inside the topic folder:
+The compact note PDF agent should save the latest PDF in the top-level PDF
+collection and the editable Markdown file in the topic folder:
 
 ```text
-Study Assistant/Notes/{system}/{topic}/pdf/
-Study Assistant/Notes/{system}/{topic}/md/
+Study Assistant/PDFs/{system}/{topic}.pdf
+Study Assistant/Notes/{system}/{topic}/md/{topic}.md
 ```
 
 ## Template References

@@ -17,9 +17,49 @@ Use this guide when converting Markdown study notes into PDF.
 - In 2-column `Field`/answer tables, the first column should usually be about
   one quarter of the table width. If a column repeatedly wraps awkwardly,
   compress wording, add semantic `<br/>` breaks, or split/reshape the table.
+- In `Field / High-Yield Answer` tables, when an answer has `label = long
+  component list` plus a trailing safety, trigger, or trap note, prefer explicit
+  breaks as `label<br/>= components<br/>→ note` so the label, component list,
+  and follow-up note remain visually distinct instead of wrapping after a
+  semicolon.
+- In compact drug anchor tables with `Class / Representative drugs / Exam Use /
+  Watch`, reserve extra width for `Exam Use`, because add-on trigger lines are
+  the answer key. Useful suffix patterns belong in the `Class` cell, not in a
+  new column.
 - In `Step / Flow / Cue` tables such as `Disease Flow`, the `Step` column should
   be the narrowest column, with enough width reserved for `Exam Cue` to avoid
   one- or two-word trailing wraps.
+- In `Pattern / Mechanism Flow / Dominant Clues / Exam Move` tables, keep
+  `Pattern` compact and avoid over-widening `Mechanism Flow`; reserve enough
+  width for `Dominant Clues` so clinical chunks such as `CXR 폐부종` do not
+  leave `폐부종` alone on the final line. A useful preset is near `18 / 29 / 30
+  / 23`.
+- Table-width presets are starting points, not final answers. Prefer the nearby
+  optimized width that minimizes orphan final lines such as `있음`, `가능`,
+  `단서`, `후보`, or clinical findings such as `폐부종` before adding manual
+  `<br/>` breaks.
+- The renderer may reduce table text by up to 0.4 pt when width optimization
+  alone cannot prevent one-word or short two-token final lines such as `상승`,
+  `확인`, `AF 단서`, or `폐정맥압 상승`. If those still remain, report a layout
+  warning instead of hiding the issue.
+- Short Korean suffix fragments such as `축`, `군`, `형`, `류`, `계`, `증`, `병`,
+  `염`, `법`, `술`, `제`, `약`, `원인`, and `질환` should not land alone in
+  table cells, including lines created by explicit `<br/>`.
+- Semantic chunks inside table cells should stay together. Prefer moving
+  phrases such as `→ RV failure`, `→ ↑systemic venous pressure`,
+  `diltiazem exception`, `폐정맥압 상승`, `RV-PVR 축`, or `원인 질환` to the next
+  line as a unit rather than splitting the phrase across lines.
+- Compact tables may use study symbols to shorten lines: `↑` for increase/rise,
+  `↓` for decrease/low/reduced function, `O` for present/with, `X` for
+  standalone absent/not-applied status, `+` for positive, and `−` for negative.
+  Verify that these glyphs render correctly in the embedded PDF font. Do not
+  use `X` to replace natural-language action guidance such as `~없이`,
+  `~하지 않기`, `피하기`, `금지`, `주의`, or `아님`; avoid symbol-only wording for
+  contraindications or red-bold safety warnings.
+- Visual-anchor interpretation tables using
+  `What to Look For / Exam Cue / Common Trap` should reserve enough space for
+  the first column's pattern findings; the renderer preset should stay near
+  `38 / 30 / 32`.
 - For concept-bridge or comparison tables where the first column carries
   bilingual concept labels, split the label with `<br/>`, such as
   `폐동맥고혈압<br/>(PAH)`, and keep the first column only wide enough for that
@@ -43,6 +83,10 @@ Use this guide when converting Markdown study notes into PDF.
   move the heading itself to the next page. This is especially important for
   `Concept Bridge`, treatment algorithms, dense drug tables, and `Exam Traps and
   Active Recall`.
+- For `Algorithm Review Map`, `Visual Anchor`, and other figure-based sections,
+  treat the heading, subheading, and first image or interpretation table as one
+  review block. Do not leave an algorithm/visual heading orphaned above a page
+  break while the image starts on the next page.
 - Avoid table widows: do not leave only one or two trailing rows of a table on
   the next page when the table could instead start cleanly on the following
   page. For compact notes, subheadings that introduce tables should reserve
@@ -58,9 +102,68 @@ Use this guide when converting Markdown study notes into PDF.
   bold can mark high-yield/frequently tested items, and red bold can mark
   contraindications or major safety warnings. Avoid coloring large blocks of
   text.
+- Allen contraindications, "do not use" medications, disease-worsening drug
+  classes, or safety-stopping conditions that are likely exam choices should be
+  red bold in the final PDF. Mark only the avoid phrase or drug class, not the
+  whole row.
 - In subtype-split table cells, bold only the branch label at the start of each
   line, such as `좌심부전:` or `ADHF/폐부종:`, so the split is scannable without
   making the whole cell visually heavy.
+- When source-summary items use different clinical axes, render them as
+  separate branch lines rather than slash-merged labels; for example, separate
+  `저박출` symptoms from `청진` findings.
+- Keep source notes with the table, figure, or paragraph they document. Avoid
+  a short `출처:` line orphaned at the top of the next page; it is acceptable to
+  use smaller source-note text or move the preceding block with the note.
+- For short section-opening prose, prefer one review sentence per line using
+  `<br/>` when each sentence can fit on one line. Leave naturally wrapping long
+  sentences alone.
+- Add images only when they improve recognition or problem solving. For ECG,
+  CXR, CT/MRI, ultrasound, dermatology, ophthalmology, pathology, and endoscopy
+  topics, use a compact `Visual Anchors` section with 1-3 representative images
+  and short interpretation notes.
+- Clinical images and ECG strips should be exact crops from the user's source
+  page, PDF, screenshot, or image file. Do not redraw, regenerate, or
+  stylistically reinterpret them.
+- Allowed image edits are limited to cropping, resizing, rotation correction,
+  and gentle brightness/contrast cleanup. Avoid labels, circles, arrows, or
+  overlays unless the user explicitly asks for an annotated copy.
+- If the image source is unavailable, leave a `원본 crop 필요` placeholder and
+  keep the visual interpretation in the table below it.
+- When the image is rendered above the table, omit any redundant `Image` column
+  from the interpretation table. The table should start with `What to Look For`
+  or a similar interpretation column.
+- If multiple screenshots, source crops, or photos duplicate the same finding or
+  algorithm, render only the clearest one. Prefer the version that stays legible
+  at PDF scale and reduces visual clutter.
+- Use an `Image` table column only if images are actually embedded inside table
+  cells. The current compact-note renderer normally renders images as separate
+  blocks, so most visual-anchor tables should be 3-column interpretation tables.
+- Keep each visual anchor close to the diagnosis, test, or differential section
+  that uses it. Avoid collecting many images at the end of the note.
+- Use Markdown image syntax on its own line:
+
+```text
+![Short descriptive alt text](path/to/image.png)
+```
+
+- Prefer local image paths that the renderer can access. If a path contains
+  spaces, wrap it in angle brackets:
+
+```text
+![ECG showing atrial flutter](</absolute/path/Study Assets/ecg/flutter.png>)
+```
+
+- For compact-note PDFs, image width should fit the text frame and height should
+  usually stay under about one third of a page. Add interpretation bullets or a
+  small table below the image instead of relying on the image alone.
+- Algorithm review maps are an exception: fit them as large as needed for
+  readability, usually up to about one half of a page. If the text inside the
+  algorithm becomes too small, split the crop into two logical parts.
+- Place algorithm review maps near the end of the relevant unit or immediately
+  after the reconstructed treatment/diagnostic section. The crop is for final
+  structural review; the note should still contain a compact exam-oriented table
+  or flow before the original source map.
 
 ## Font
 
@@ -176,12 +279,13 @@ the PDF. Do not treat the PDF as the editable source.
 Preferred canonical pair:
 
 ```text
-md/{topic-slug}-compact-note.md
-pdf/{topic-slug}-compact-note.pdf
+Study Assistant/Notes/{system}/{topic}/md/{topic}.md
+Study Assistant/PDFs/{system}/{topic}.pdf
 ```
 
-If an experimental version is needed, create a temporary `-v2` or date-stamped
-copy, then promote the best result back to the canonical filename.
+If an experimental version is needed, create it in temporary local output or in
+the topic `_archive` folder. Do not leave date-stamped or cache-busting PDFs in
+the active `Study Assistant/PDFs/{system}/` folder.
 
 ## Unit Finalization
 
@@ -195,6 +299,8 @@ At finalization, review the rendered PDF as a whole and adjust:
 - Heading spacing after tables and source-note boxes.
 - Heading orphans, where a major heading appears alone at the bottom of a page
   and its table or first paragraph begins on the next page.
+- Image/algorithm orphans, where a review-map or visual-anchor heading appears
+  on one page but the first image or interpretation table begins on the next.
 - Table widows, where only one or two final rows spill to the next page.
 - Orphan pages with only a small leftover note.
 - Excessive blank lower-page space when it harms review flow.
@@ -208,6 +314,8 @@ At finalization, review the rendered PDF as a whole and adjust:
 - Drug tables remain readable.
 - Font weight is not too heavy for paragraph reading.
 - Section headings are not pressed tightly against preceding content.
+- Algorithm/visual headings stay with the first image or interpretation table
+  they introduce.
 - `Exam Traps and Active Recall` has clear separation from the preceding
   algorithm/table/source-note block.
 - Page breaks do not leave a page containing only a small trailing note.
